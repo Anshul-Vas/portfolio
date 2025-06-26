@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anshul Vashisht | Creative Technologist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --primary-dark: #5649c7;
+            --secondary: #00cec9;
+            --accent: #fd79a8;
+            --dark: #121212;
+            --darker: #0a0a0a;
+            --light: #f5f6fa;
+            --gradient: linear-gradient(135deg, var(--primary), var(--accent));
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-highlight: rgba(255, 255, 255, 0.2);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        ::selection {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--darker);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .preloader.fade-out {
+            opacity: 0;
+        }
+        
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--glass);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            padding: 1rem 3rem;
+            background: rgba(18, 18, 18, 0.9);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo i {
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: white;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.8rem;
+            color: white;
+            z-index: 1001;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 200%;
+            background: var(--gradient);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.1;
+            filter: blur(100px);
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 60%;
+            height: 160%;
+            background: var(--secondary);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.05;
+            filter: blur(80px);
+            animation: float 6s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .hero-content {
+            flex: 1;
+            padding-right: 2rem;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, white, var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero h1 span {
+            display: inline-block;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .profile-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--glass-border);
+            transform: perspective(1000px) rotateY(-15deg);
+            transition: transform 0.5s ease;
+        }
+        
+        .profile-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient);
+            opacity: 0.3;
+            z-index: 1;
+            mix-blend-mode: overlay;
+        }
+        
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .profile-container:hover {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+        
+        .profile-container:hover .profile-img {
+            transform: scale(1.05);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2rem;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(108, 92, 231, 0.5);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: white;
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 8rem 10%;
+            position: relative;
+        }
+        
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(108, 92, 231, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 5rem;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Videos Section */
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            justify-content: center;
+        }
+        
+        .video-wrapper {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+            background: var(--glass);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .video-wrapper:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--glass-highlight);
+        }
+        
+        .video-16-9 {
+            aspect-ratio: 16/9;
+        }
+        
+        .video-9-16 {
+            aspect-ratio: 9/16;
+            max-width: 350px;
+        }
+        
+        .video-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+        
+        .video-info {
+            padding: 1.8rem;
+        }
+        
+        .video-info h3 {
+            margin-bottom: 0.8rem;
+            color: white;
+            font-size: 1.4rem;
+        }
+        
+        .video-info p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+        
+        /* Certifications Section */
+        .certifications-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .certification-card {
+            background: var(--glass);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .certification-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--glass-highlight);
+        }
+        
+        .certification-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .certification-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient);
+            opacity: 0.2;
+            z-index: 1;
+            mix-blend-mode: overlay;
+        }
+        
+        .certification-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .certification-card:hover .certification-image img {
+            transform: scale(1.1);
+        }
+        
+        .certification-info {
+            padding: 1.8rem;
+        }
+        
+        .certification-info h3 {
+            margin-bottom: 0.8rem;
+            color: white;
+            font-size: 1.4rem;
+        }
+        
+        .certification-info p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .certification-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .project-card {
+            background: var(--glass);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--glass-highlight);
+        }
+        
+        .project-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .project-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient);
+            opacity: 0.2;
+            z-index: 1;
+            mix-blend-mode: overlay;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+        
+        .project-info {
+            padding: 1.8rem;
+        }
+        
+        .project-info h3 {
+            margin-bottom: 0.8rem;
+            color: white;
+            font-size: 1.4rem;
+        }
+        
+        .project-info p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-tag {
+            background: rgba(108, 92, 231, 0.2);
+            color: var(--secondary);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(108, 92, 231, 0.3);
+        }
+        
+        /* Education Timeline Section */
+        .education-section {
+            background: var(--dark);
+            padding: 8rem 10%;
+            position: relative;
+        }
+        
+        .education-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(0, 206, 201, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: var(--gradient);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--gradient);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::after {
+            right: -10px;
+        }
+        
+        .right::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 30px;
+            background: var(--glass);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--glass-highlight);
+        }
+        
+        .timeline-content h3 {
+            margin-bottom: 10px;
+            color: white;
+            font-size: 1.4rem;
+        }
+        
+        .timeline-content p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .education-detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            color: var(--secondary);
+        }
+        
+        .education-detail i {
+            font-size: 1.1rem;
+        }
+        
+        .current {
+            border-left: 3px solid var(--accent);
+            padding-left: 15px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 5rem 10%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 20%, rgba(108, 92, 231, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        footer h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, white, var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        footer p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+        
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .contact-link {
+            color: white;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .contact-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .contact-link i {
+            font-size: 1.3rem;
+        }
+        
+        .copyright {
+            margin-top: 3rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+        
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 8rem;
+                padding-bottom: 5rem;
+                height: auto;
+                min-height: 100vh;
+            }
+            
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 4rem;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .hero-image {
+                margin-top: 3rem;
+            }
+            
+            .profile-container {
+                transform: perspective(1000px) rotateY(0deg);
+            }
+            
+            .section {
+                padding: 6rem 8%;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+            }
+            
+            .left::after, .right::after {
+                left: 21px;
+            }
+            
+            .right {
+                left: 0%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1.2rem 2rem;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 80%;
+                height: 100vh;
+                background: var(--dark);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2.5rem;
+                transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                margin: 0 auto;
+            }
+            
+            .section {
+                padding: 5rem 6%;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .video-wrapper, .certification-card, .project-card {
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .contact-link {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+            
+            .timeline-content {
+                padding: 20px;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+        
+        .delay-4 {
+            animation-delay: 0.8s;
+        }
+        
+        /* Particle Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        /* Glow Effects */
+        .glow {
+            text-shadow: 0 0 10px rgba(108, 92, 231, 0.5);
+        }
+        
+        /* 3D Card Effect */
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+        
+        .card-3d:hover {
+            transform: rotateY(10deg) rotateX(5deg) translateY(-10px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Particle Background -->
+    <div class="particles" id="particles-js"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <i class="fas fa-camera-retro"></i>
+            <span>Anshul Vashisht</span>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="#introduction">Introduction</a>
+            <a href="#education">Education</a>
+            <a href="#videos">Videos</a>
+            <a href="#certifications">Certifications</a>
+            <a href="#projects">Projects</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Introduction) -->
+    <section class="hero" id="introduction">
+        <div class="hero-bg"></div>
+        <div class="hero-content fade-in">
+            <h1>
+                <span class="glow"></span><br>
+                <span class="glow">Hi, I'm</span><br>
+                <span class="glow">Anshul Vashisht</span>
+            </h1>
+            <p class="delay-1">— a passionate and driven B.Tech 3rd-year student with a strong foundation in Full Stack Web Development.
+With hands-on experience in building dynamic, responsive, and user-friendly web applications, I have developed a deep interest in front-end development and UI/UX design. I enjoy crafting seamless digital experiences that are both visually appealing and functionally efficient.
+
+My skillset spans across modern web technologies, and I'm particularly enthusiastic about translating user needs into intuitive and interactive interfaces. Whether it's prototyping designs, coding pixel-perfect layouts, or optimizing performance across devices, I love bringing ideas to life through code and design.
+
+Always curious and eager to learn, I stay up-to-date with industry trends and best practices to deliver high-quality, scalable web solutions. I'm actively working on projects that merge creativity with functionality, and I look forward to exploring more opportunities to grow as a developer and designer.</p>
+            <div class="hero-buttons delay-2">
+                <a href="#projects" class="btn">
+                    <i class="fas fa-eye"></i> View My Work
+                </a>
+                <a href="#contact" class="btn btn-outline">
+                    <i class="fas fa-paper-plane"></i> Contact Me
+                </a>
+            </div>
+        </div>
+        <div class="hero-image delay-3">
+            <div class="profile-container card-3d">
+                <img src="image.jpg" alt="Anshul Vashisht" class="profile-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education-section" id="education">
+        <h2 class="section-title fade-in">Education Journey</h2>
+        <p class="section-subtitle fade-in delay-1">My academic path that shaped my technical and creative skills</p>
+        
+        <div class="timeline">
+            <!-- Current Education -->
+            <div class="timeline-item right fade-in delay-2">
+                <div class="timeline-content card-3d current">
+                    <h3>Bachelor of Technology</h3>
+                    <div class="education-detail">
+                        <i class="fas fa-book-open"></i>
+                        <span>Computer Science and Engineering</span>
+                    </div>
+                    <div class="education-detail">
+                        <i class="fas fa-university"></i>
+                        <span>Graphic Era Hill University, Dehradun</span>
+                    </div>
+                    <div class="education-detail">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>2021 - Present (Currently in 3rd Year)</span>
+                    </div>
+                    <p>Specializing in software development, algorithms, and system design. Actively involved in coding competitions and tech clubs.</p>
+                </div>
+            </div>
+            
+            <!-- 12th Grade -->
+            <div class="timeline-item left fade-in delay-3">
+                <div class="timeline-content card-3d">
+                    <h3>Senior Secondary (12th Grade)</h3>
+                    <div class="education-detail">
+                        <i class="fas fa-percentage"></i>
+                        <span>85% Aggregate</span>
+                    </div>
+                    <div class="education-detail">
+                        <i class="fas fa-school"></i>
+                        <span>St. Jude's School, Dehradun (ISC Board)</span>
+                    </div>
+                    <div class="education-detail">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>2020 - 2021</span>
+                    </div>
+                    <p>Completed with PCM (Physics, Chemistry, Mathematics) and Computer Science as main subjects. Developed strong analytical and problem-solving skills.</p>
+                </div>
+            </div>
+            
+            <!-- 10th Grade -->
+            <div class="timeline-item right fade-in delay-4">
+                <div class="timeline-content card-3d">
+                    <h3>Secondary (10th Grade)</h3>
+                    <div class="education-detail">
+                        <i class="fas fa-percentage"></i>
+                        <span>90% Aggregate</span>
+                    </div>
+                    <div class="education-detail">
+                        <i class="fas fa-school"></i>
+                        <span>St. Jude's School, Dehradun (ICSE Board)</span>
+                    </div>
+                    <div class="education-detail">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>2018 - 2019</span>
+                    </div>
+                    <p>Built strong foundation in science and mathematics. Developed interest in technology through computer applications coursework.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section class="section" id="videos">
+        <h2 class="section-title fade-in">My Video Portfolio</h2>
+        <p class="section-subtitle fade-in delay-1">Capturing moments and telling stories through the lens. Here are some of my recent video projects showcasing my skills in cinematography and editing.</p>
+        <div class="video-container">
+            <div class="video-wrapper video-16-9 fade-in card-3d">
+                <iframe src="interview.mp4" title="Campus Documentary" frameborder="0" allowfullscreen></iframe>
+                <div class="video-info">
+                    <h3>Campus Documentary</h3>
+                    <p>A cinematic journey through Graphic Era Hill University, showcasing campus life, facilities, and student experiences with professional-grade cinematography.</p>
+                </div>
+            </div>
+            <div class="video-wrapper video-9-16 fade-in delay-1 card-3d">
+                <iframe src="intro.mp4" title="Short Film" frameborder="0" allowfullscreen></iframe>
+                <div class="video-info">
+                    <h3>"College Days" Short Film</h3>
+                    <p>A vertical format narrative exploring college friendships, challenges, and memories, shot on DSLR and edited with advanced color grading techniques.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section - Updated with 3 new certifications -->
+<section class="section" id="certifications">
+    <h2 class="section-title fade-in">My Certifications</h2>
+    <p class="section-subtitle fade-in delay-1">Formal recognition of my skills and expertise in both technical and creative domains.</p>
+    <div class="certifications-container">
+        <div class="certification-card fade-in card-3d">
+            <div class="certification-image">
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1422&q=80" alt="Adobe Certification">
+            </div>
+            <div class="certification-info">
+                <h3>Adobe Certified Professional</h3>
+                <p>Video Communication Using Adobe Premiere Pro - demonstrating professional-level skills in video editing, effects, and post-production workflows.</p>
+                <div class="certification-date">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>Issued May 2023</span>
+                </div>
+            </div>
+        </div>
+        <div class="certification-card fade-in delay-1 card-3d">
+            <div class="certification-image">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Photography Certification">
+            </div>
+            <div class="certification-info">
+                <h3>Advanced Photography Certification</h3>
+                <p>Mastered composition, lighting techniques, and post-processing to create visually stunning photographs in various genres and conditions.</p>
+                <div class="certification-date">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>Issued March 2023</span>
+                </div>
+            </div>
+        </div>
+        <div class="certification-card fade-in delay-2 card-3d">
+            <div class="certification-image">
+                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Python Certification">
+            </div>
+            <div class="certification-info">
+                <h3>Python Programming Specialization</h3>
+                <p>Completed comprehensive training in Python programming, data structures, algorithms, and application development through university coursework.</p>
+                <div class="certification-date">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>Issued December 2022</span>
+                </div>
+            </div>
+        </div>
+        <!-- New Certification Cards Added Below -->
+        <div class="certification-card fade-in delay-3 card-3d">
+            <div class="certification-image">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Cloud Certification">
+            </div>
+            <div class="certification-info">
+                <h3>AWS Certified Cloud Practitioner</h3>
+                <p>Validated cloud fluency and foundational AWS knowledge to effectively demonstrate an understanding of the AWS Cloud.</p>
+                <div class="certification-date">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>Issued October 2023</span>
+                </div>
+            </div>
+        </div>
+        <div class="certification-card fade-in delay-4 card-3d">
+            <div class="certification-image">
+                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Data Science Certification">
+            </div>
+            <div class="certification-info">
+                <h3>Data Science Fundamentals</h3>
+                <p>Certified in data analysis, visualization, and machine learning concepts through hands-on projects and coursework.</p>
+                <div class="certification-date">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>Issued August 2023</span>
+                </div>
+            </div>
+        </div>
+        <div class="certification-card fade-in delay-4 card-3d">
+            <div class="certification-image">
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1422&q=80" alt="Web Development Certification">
+            </div>
+            <div class="certification-info">
+                <h3>Full Stack Web Development</h3>
+                <p>Completed certification covering front-end and back-end technologies including HTML, CSS, JavaScript, Node.js, and databases.</p>
+                <div class="certification-date">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>Issued June 2023</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+    <h2 class="section-title fade-in">Creative Projects</h2>
+    <p class="section-subtitle fade-in delay-1">A showcase of my multidisciplinary work combining technical skills with creative vision.</p>
+    <div class="projects-grid">
+        <div class="project-card fade-in card-3d">
+            <div class="project-image">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="University Promo">
+            </div>
+            <div class="project-info">
+                <h3>University Promotional Video</h3>
+                <p>Produced and edited an official promotional video for Graphic Era Hill University, featuring drone footage, interviews, and cinematic sequences that increased enrollment inquiries by 30%.</p>
+                <div class="project-tags">
+                    <span class="project-tag">Cinematography</span>
+                    <span class="project-tag">Drone Operation</span>
+                    <span class="project-tag">Color Grading</span>
+                </div>
+            </div>
+        </div>
+        <div class="project-card fade-in delay-1 card-3d">
+            <div class="project-image">
+                <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Tech Fest">
+            </div>
+            <div class="project-info">
+                <h3>Annual Tech Fest Coverage</h3>
+                <p>Documented the university's tech fest with photography and created daily highlight reels that gained over 50,000 views across social media platforms.</p>
+                <div class="project-tags">
+                    <span class="project-tag">Event Photography</span>
+                    <span class="project-tag">Social Media</span>
+                    <span class="project-tag">Fast-paced Editing</span>
+                </div>
+            </div>
+        </div>
+        <div class="project-card fade-in delay-2 card-3d">
+            <div class="project-image">
+                <img src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Short Film">
+            </div>
+            <div class="project-info">
+                <h3>"Memories" Short Film</h3>
+                <p>Directed, shot, and edited an award-winning short film about college friendships that won first prize in the campus film festival and was featured in local media.</p>
+                <div class="project-tags">
+                    <span class="project-tag">Storytelling</span>
+                    <span class="project-tag">Direction</span>
+                    <span class="project-tag">Post-production</span>
+                </div>
+            </div>
+        </div>
+        <div class="project-card fade-in delay-3 card-3d">
+            <div class="project-image">
+                <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Alumni Series">
+            </div>
+            <div class="project-info">
+                <h3>Alumni Interview Series</h3>
+                <p>Produced a 10-episode interview series with successful alumni, handling all aspects from lighting setup to final editing, resulting in a 200% increase in channel subscribers.</p>
+                <div class="project-tags">
+                    <span class="project-tag">Interviewing</span>
+                    <span class="project-tag">Lighting Design</span>
+                    <span class="project-tag">Audio Engineering</span>
+                </div>
+            </div>
+        </div>
+        <!-- New BTech Project Cards Added Below -->
+        <div class="project-card fade-in delay-4 card-3d">
+            <div class="project-image">
+                <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1465&q=80" alt="AI Project">
+            </div>
+            <div class="project-info">
+                <h3>AI-Powered Video Analytics</h3>
+                <p>Developed a computer vision system that analyzes video content to automatically generate metadata, tags, and highlights using machine learning algorithms.</p>
+                <div class="project-tags">
+                    <span class="project-tag">Python</span>
+                    <span class="project-tag">OpenCV</span>
+                    <span class="project-tag">TensorFlow</span>
+                    <span class="project-tag">Computer Vision</span>
+                </div>
+            </div>
+        </div>
+        <div class="project-card fade-in delay-4 card-3d">
+            <div class="project-image">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Web Project">
+            </div>
+            <div class="project-info">
+                <h3>Video Portfolio Platform</h3>
+                <p>Built a full-stack web application for videographers to showcase their work with custom portfolios, client galleries, and secure video streaming capabilities.</p>
+                <div class="project-tags">
+                    <span class="project-tag">React</span>
+                    <span class="project-tag">Node.js</span>
+                    <span class="project-tag">MongoDB</span>
+                    <span class="project-tag">AWS S3</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Footer -->
+    <footer class="fade-in" id="contact">
+        <div class="footer-content">
+            <h2>Let's Create Something Amazing Together</h2>
+            <p>Whether you're looking for a creative collaborator, need video production services, or just want to connect, I'd love to hear from you.</p>
+            <div class="contact-links">
+                <a href="mailto:vashishtanshul19@gmail.com" class="contact-link">
+                    <i class="fas fa-envelope"></i> vashishtanshul19@gmail.com
+                </a>
+                <a href="https://wa.me/7618302536" class="contact-link">
+                    <i class="fab fa-whatsapp"></i> +91 7618302536
+                </a>
+                <a href="https://t.me/7618302536" class="contact-link">
+                    <i class="fab fa-telegram"></i> @anshulv
+                </a>
+            </div>
+            <p class="copyright">© 2023 Anshul Vashisht. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Preloader
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.preloader').classList.add('fade-out');
+                setTimeout(function() {
+                    document.querySelector('.preloader').style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+        
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Scroll animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = function() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        window.addEventListener('load', fadeInOnScroll);
+        
+        // Initialize particles.js
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#6c5ce7"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.3,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#6c5ce7",
+                    "opacity": 0.2,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+        
+        // 3D card tilt effect
+        const cards = document.querySelectorAll('.card-3d');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 20;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 20;
+                card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
+            
+            card.addEventListener('mouseenter', () => {
+                card.style.transition = 'none';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transition = 'transform 0.5s ease';
+                card.style.transform = 'rotateY(0) rotateX(0)';
+            });
+        });
+    </script>
+</body>
+</html>
